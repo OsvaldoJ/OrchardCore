@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,10 +37,11 @@ namespace OrchardCore.Localization
 
             if (siteSettings.SupportedCultures.Length > 0)
             {
+                var supportedCulture = siteSettings.GetConfiguredCultures();
+
                 options
-                    .AddSupportedCultures(siteSettings.SupportedCultures)
-                    .AddSupportedUICultures(siteSettings.SupportedCultures)
-                    ;
+                    .AddSupportedCultures(supportedCulture)
+                    .AddSupportedUICultures(supportedCulture);
             }
 
             app.UseRequestLocalization(options);
